@@ -1,0 +1,86 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    text-align: center;
+    padding: 40px 20px;
+    margin: 0;
+}
+
+h1 {
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+p {
+    color: #aaaaaa;
+    margin-bottom: 40px;
+}
+
+/* The Soundboard Grid Setup */
+.soundboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Base Style for All Buttons */
+.sound-btn {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border: 2px solid #333333;
+    padding: 30px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.1s ease-in-out, border-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    
+    /* Default theme fallback color if variables fail */
+    --btn-glow: #00ff88; 
+}
+
+/* Hover effects for a slight push animation */
+.sound-btn:hover {
+    transform: translateY(-3px);
+    border-color: var(--btn-glow);
+}
+
+.sound-btn:active {
+    transform: translateY(1px);
+}
+
+/* --- AUTOMATIC BUTTON THEME VARIABLES --- */
+
+/* 1. Neon Green */
+.soundboard-grid .sound-btn:nth-child(5n+1) {
+    --btn-glow: #00ff88;
+}
+
+/* 2. Electric Cyan Blue */
+.soundboard-grid .sound-btn:nth-child(5n+2) {
+    --btn-glow: #00e5ff;
+}
+
+/* 3. Vivid Purple */
+.soundboard-grid .sound-btn:nth-child(5n+3) {
+    --btn-glow: #bd00ff;
+}
+
+/* 4. Hot Pink */
+.soundboard-grid .sound-btn:nth-child(5n+4) {
+    --btn-glow: #ff007f;
+}
+
+/* 5. Bright Orange */
+.soundboard-grid .sound-btn:nth-child(5n+5) {
+    --btn-glow: #ff9100;
+}
+
+/* --- FULL WIDTH BUTTON RULE --- */
+.sound-btn.full-width {
+    grid-column: 1 / -1;
+}
