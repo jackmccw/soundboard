@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Covers buttons on both boards, so only one sound plays at a time across the page
     const buttons = document.querySelectorAll(".sound-btn");
     let activeAudio = null;
     let activeBtn = null;
@@ -6,7 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     buttons.forEach(button => {
         button.addEventListener("click", () => {
-            // 1. If another sound is currently animating, reset its style immediately
+            // 1. If another sound is currently playing, stop it and reset its style
             if (activeAudio) {
                 activeAudio.pause();
                 cancelAnimationFrame(animationFrameId);
@@ -14,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             const soundPath = button.getAttribute("data-sound");
-            
+
             if (soundPath) {
                 const audio = new Audio(soundPath);
                 activeAudio = audio;
@@ -23,14 +24,12 @@ document.addEventListener("DOMContentLoaded", () => {
                 // 2. Continuous progress loop function
                 function updateProgress() {
                     if (audio.duration) {
-                        // Calculate percentage of song played (0 to 100)
                         const percentage = (audio.currentTime / audio.duration) * 100;
-                        
-                        // Move the gradient line from left (0%) to right (100%)
-                        button.style.background = `linear-gradient(to right, var(--btn-glow) ${percentage}%, #1e1e1e ${percentage}%)`;
+
+                        // Fill uses the button's glow colour over its board's base colour
+                        button.style.background = `linear-gradient(to right, var(--btn-glow) ${percentage}%, var(--btn-bg) ${percentage}%)`;
                     }
 
-                    // Keep loops running while audio is playing
                     if (!audio.paused && !audio.ended) {
                         animationFrameId = requestAnimationFrame(updateProgress);
                     }
@@ -46,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         console.error("Audio playback failed:", error);
                     });
 
-                // 4. Reset button background clean when audio finishes naturally
+                // 4. Reset button background when audio finishes naturally
                 audio.addEventListener("ended", () => {
                     cancelAnimationFrame(animationFrameId);
                     button.style.background = "";
