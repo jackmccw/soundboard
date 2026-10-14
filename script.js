@@ -2,6 +2,25 @@ document.addEventListener("DOMContentLoaded", () => {
     // Covers buttons on both boards, so only one sound plays at a time across the page
     const buttons = document.querySelectorAll(".sound-btn");
 
+    // --- Shrink long labels so every button stays the same size ---
+    function fitLabels() {
+        buttons.forEach(b => {
+            b.style.fontSize = "";
+            let size = parseFloat(getComputedStyle(b).fontSize);
+            while ((b.scrollWidth > b.clientWidth || b.scrollHeight > b.clientHeight) && size > 10) {
+                size -= 0.5;
+                b.style.fontSize = size + "px";
+            }
+        });
+    }
+    fitLabels();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitLabels);
+    let resizeFrame = null;
+    window.addEventListener("resize", () => {
+        cancelAnimationFrame(resizeFrame);
+        resizeFrame = requestAnimationFrame(fitLabels);
+    });
+
     // --- Web Audio setup: sounds are downloaded + decoded up front for instant playback ---
     const AudioCtx = window.AudioContext || window.webkitAudioContext;
     const ctx = AudioCtx ? new AudioCtx() : null;
