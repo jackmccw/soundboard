@@ -7,9 +7,41 @@ body {
     margin: 0;
 }
 
+/* --- TWO BOARDS: side by side on desktop, stacked on mobile --- */
+.boards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    max-width: 1500px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+@media (max-width: 900px) {
+    .boards {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+}
+
+/* Per-board colour variables (Max = original look) */
+.board {
+    --heading-color: #ffffff;
+    --btn-bg: #1e1e1e;
+    --btn-border: #333333;
+}
+
+/* Doddles: gold heading + blue-tinted buttons to tell the boards apart */
+.board--doddles {
+    --heading-color: #ffd23f;
+    --btn-bg: #1a1f2e;
+    --btn-border: #2f3a5a;
+}
+
 h1 {
     margin-bottom: 5px;
-    color: #ffffff;
+    color: var(--heading-color);
+    font-size: clamp(1.4rem, 2.6vw, 2rem);
 }
 
 p {
@@ -28,9 +60,9 @@ p {
 
 /* Base Style for All Buttons */
 .sound-btn {
-    background-color: #1e1e1e;
+    background-color: var(--btn-bg);
     color: #ffffff;
-    border: 2px solid #333333;
+    border: 2px solid var(--btn-border);
     padding: 30px 20px;
     font-size: 1.1rem;
     font-weight: bold;
@@ -38,9 +70,9 @@ p {
     cursor: pointer;
     transition: transform 0.1s ease-in-out, border-color 0.2s;
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-    
+
     /* Default theme fallback color if variables fail */
-    --btn-glow: #00ff88; 
+    --btn-glow: #00ff88;
 }
 
 /* Hover effects for a slight push animation */
