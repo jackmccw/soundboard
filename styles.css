@@ -63,10 +63,18 @@ p {
     background-color: var(--btn-bg);
     color: #ffffff;
     border: 2px solid var(--btn-border);
-    padding: 30px 20px;
+    padding: 10px 14px;
     font-size: 1.1rem;
     font-weight: bold;
     border-radius: 12px;
+
+    /* Fixed size for every button; long labels shrink to fit (see script.js) */
+    height: 96px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1.2;
+    overflow: hidden;
     cursor: pointer;
     transition: transform 0.1s ease-in-out, border-color 0.2s;
     box-shadow: 0 4px 6px rgba(0,0,0,0.3);
